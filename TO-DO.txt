@@ -1,0 +1,38 @@
+Responsabilities:
+
+The system should store the deck as a list of ints from 0-51
+	-Page 256 in the book has a good write up on this
+	-Int variable to keep track of how many cards have been dealt to call to ensure call to next card.
+	-After a card is dealt change that card position to a 0, That way we can check when a card gets dealt
+	--> if card == 0, then Card_Count +=1...
+
+The system should deal two random cards from the deck to both the dealer and player
+
+	-I think we should store each players cards in a 2D array
+
+	-Int Dealt_Cards[][] = new int[2][8] Since the player cant go over 21 the most card they could be dealt is 8
+	--> 2+2+2+2+3+3+3+3 = 20. So 2 players, upto 8 cards.
+
+The user can view one of the cards the dealer was dealt
+	-Simple, print just one card.
+
+The user can view the two cards they were dealt
+	-Print both
+
+The user can HIT or STAND until they BUST or choose to STAND
+	Hit: one additional card will be added, if not bust same questions are asked.
+	Stand: You are pleased with your your cards total and no longer want to continue
+	BUST: Score>21
+
+The user receives another card if they choose to HIT
+	-Add card to players
+	-Increment deck position count variable
+	-Add card to players total 
+
+The system deals the dealer cards until they BUST, cards total 17+, or they beat the players hand
+
+	-Basically if the dealer has a 10 and a 2 for 12 and they hit and get a 4. The dealer now has
+	-->16 and HAS to hit again because its less than 17. If the dealer gets an Ace they will have
+	-->17 and HAS to stop drawing and the dealers and players cards are compared.
+
+The user can choose to play again or quit
