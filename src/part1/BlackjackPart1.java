@@ -7,8 +7,8 @@ public class BlackjackPart1 {
 	public static void main(String[] args) {
 		
 		int[] deck = new int[52];
-		String[] suits = {"Spades", "Hearts", "Diamonds", "Clubs"};
-		String[] ranks = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
+		String[] suits = {"s", "h", "d", "c"};
+		String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
 		
 		// Intialize the card
 			for(int i = 0; i < deck.length; i++) deck[i] = i;
@@ -24,10 +24,10 @@ public class BlackjackPart1 {
 			}
 			
 			// Display first four cards
-			for(int i = 0; i < 4; i++) {
+			for(int i = 0; i < deck.length; i++) {
 				String suit = suits[deck[i] / 13];
 				String rank = ranks[deck[i] % 13];
-				System.out.println("Card Number : " + deck[i] + " :" + rank + " of " + suit);
+				System.out.println(rank + suit);
 			}
 			
 			
