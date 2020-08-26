@@ -7,6 +7,8 @@ public class BlackjackPart1 {
 	public static void main(String[] args) {
 		
 		int[] deck = new int[52];
+		
+		//Easy reading
 		String[] suits = {"s", "h", "d", "c"};
 		String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
 		
