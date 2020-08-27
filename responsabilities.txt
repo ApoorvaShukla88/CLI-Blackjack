@@ -1,13 +1,14 @@
 Apoorva:
+
 -Deal cards to palyer and dealer. If dealer has an A or Face, Check other card. if dealer has 21 its over!
 -Print the menu of options
 -Handle if Stand routine
--Handle Dealers turn
+
 
 Cedric:
 -Deck (While use seperate method, this way we can just call to reset the deck)
 -->Deck Variables
 
 -Handle if Hit routine
--Handle Quit
+-Handle Dealers turn
 
