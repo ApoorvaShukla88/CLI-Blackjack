@@ -4,59 +4,79 @@ import java.util.Scanner;
 
 public class BlackjackPart1 {
 	
+	static int[] deck = new int[52];
+	
+	//Easy reading
+	static String[] suits = {"s", "h", "d", "c"};
+	static String[] ranks = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"};
+	
 	public static void main(String[] args) {
 		
 		Scanner input = new Scanner(System.in);
 		
 		boolean WannaPlay = true;
 		
-		do {
-			int[] deck = new int[52];
+		
+		
+			// Intialize the card
+			for(int i = 0; i < deck.length; i++) deck[i] = i;	
+		
+		do {	
 			
-			//Easy reading
-			String[] suits = {"s", "h", "d", "c"};
-			String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
-			
-				// Intialize the card
-				for(int i = 0; i < deck.length; i++) deck[i] = i;
+			// Shuffle the cards
+						for( int i = 0; i < deck.length; i++) {
+							int index = (int) (Math.random() * deck.length);
+							int temp = deck[i];
+							deck[i] = deck[index];
+							deck[index] = temp;
+							
+							
+						}		
 				
-				// Shuffle the cards
-				for( int i = 0; i < deck.length; i++) {
-					int index = (int) (Math.random() * deck.length);
-					int temp = deck[i];
-					deck[i] = deck[index];
-					deck[index] = temp;
-					
-					
+				
+
+				
+				
+				int dealerScore = 0;
+				int playerScore = 0;
+				
+				// distrobution of cards to player and dealer
+				for(int i = 0; i < 4; i++) {
+					if (i% 2 == 0) {
+						playerScore += getScore(deck[i]);
+					}else {
+						dealerScore += getScore(deck[i]);
+					}
 				}
-//				
-	//			// Display first four cards
-	//			for(int i = 0; i < deck.length; i++) {
-	//				String suit = suits[deck[i] / 13];
-	//				String rank = ranks[deck[i] % 13];
-	//				System.out.println(rank + suit);
-	//			}
-	//			
+				System.out.println("Player Score  is " + playerScore);
+				System.out.println("Dealer Score  is " + dealerScore);
+				
+				if (!checkWinner(playerScore, dealerScore)) {
+					int j = 4;
+					Scanner hitOrStand = new Scanner(System.in);
+					System.out.println("Enter h to HIT or s to STAND : ");
+					char userChoice = hitOrStand.next().charAt(0);
+					while(userChoice == 'h') {
+						playerScore += getScore(deck[j]);
+						if (!checkWinner(playerScore, dealerScore)) {
+							j++;
+							dealerScore += getScore(deck[j]);
+							if (!checkWinner(playerScore, dealerScore)) {
+								j++;
+							userChoice = hitOrStand.next().charAt(0);}
+						} else userChoice = 's';
+//						if (checkWinner(playerScore, dealerScore)) {
+//							WannaPlay = Continue();
+//						} else {
+//							break;
+//						}
+					}
+				}
 				
 				
 				
+				WannaPlay = Continue();	
 				
-			// Game starts - 
-	//			String userHand = new String[10];
-	//			String dealerHand = new String[10];
-	//			
-	//			
-	//			boolean HIT = true;
-	//			
-	//			// Display the cards
-	//			while (HIT) {
-	//				Scanner input = new Scanner(System.in);
-	//				String a = input.next();
-	//				if(a == 'HIT') {
-	//					
-	//				}
-				
-				WannaPlay = Continue();
 				
 			}while(WannaPlay == true);
 		
@@ -67,6 +87,35 @@ public class BlackjackPart1 {
 		input.close();
 	}
 	
+	
+	public static int getScore(int cardIndex) {
+		String suit = suits[deck[cardIndex] / 13];
+		String rank = ranks[deck[cardIndex] % 13];
+		int result = Integer.parseInt(rank);
+        switch (Integer.parseInt(rank))
+        {
+            case 11:
+            case 12:
+            case 13:
+                result =  10;
+        }
+        return result;
+		
+	}
+	
+	public static boolean checkWinner(int playerScore, int dealerScore) {
+		
+		if (playerScore == 21 || dealerScore > 21) {
+			System.out.println("Player Wins");
+			return true;
+		} else if (dealerScore ==21 || playerScore > 21) {
+			System.out.println("Dealer Wins");
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
 	//Continue class
 	public static boolean Continue() {
 		
