@@ -1,7 +1,6 @@
 package part1;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class BlackjackPart1 {
 	
@@ -13,16 +12,16 @@ public class BlackjackPart1 {
 	
 	public static void main(String[] args) {
 		
-		Continue();
+		
 		Scanner input = new Scanner(System.in);
 		boolean WannaPlay = true;
 		
-			// Intialize the card
+			// Initialize the card
 			for(int i = 0; i < deck.length; i++) deck[i] = i;	
 		
 		do {	
 			
-			//Reset to 0 each itteration
+			//Reset to 0 each iteration
 			int dealerScore = 0;
 			int playerScore = 0;
 			
@@ -87,8 +86,8 @@ public class BlackjackPart1 {
 				}
 				
 				
-				
-				WannaPlay = Continue();	
+				//Calls Continue Method
+				WannaPlay = Continue.Continue();	
 				
 				
 			}while(WannaPlay == true);
@@ -136,43 +135,6 @@ public class BlackjackPart1 {
 		
 	}
 	//Continue class
-	public static boolean Continue() {
-		
-		Scanner temp_input = new Scanner(System.in);
-		char UserInput;
-		boolean Continue = true;
 	
-		try {
-			
-			System.out.println();
-			System.out.print("Would you like to play again? (y / n) : ");
-			UserInput = temp_input.next().charAt(0);
-			
-			if(UserInput == 'Y' || UserInput == 'y') {
-				
-				Continue = true;
-				
-			}else if(UserInput == 'n' || UserInput == 'N') {
-				
-				Continue = false;
-			}else{
-				
-				System.out.print("Invalid Response detected.... Please Try Again");
-				Continue();
-			}
-			
-		}catch(InputMismatchException e) {
-			
-			System.out.println("Please either y or n");
-			System.out.println();
-			temp_input.nextLine();
-			
-		}finally{
-			
-			temp_input.close();
-		}
-		
-		return Continue;
-	}
 		
 }
