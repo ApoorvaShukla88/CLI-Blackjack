@@ -25,6 +25,7 @@ public static boolean Continue() {
 			}else if(UserInput == 'n' || UserInput == 'N') {
 				
 				Continue = false;
+				
 			}else{
 				
 				System.out.print("Invalid Response detected.... Please Try Again");
@@ -33,14 +34,17 @@ public static boolean Continue() {
 			
 		}catch(InputMismatchException e) {
 			
-			System.out.println("Please either y or n");
+			System.out.println("Please either type y or n");
 			System.out.println();
 			temp_input.nextLine();
 			
 		}finally{
-			//Closes Scannar
+			
+			//Closes Scanner
 			temp_input.close();
+			
 		}
+		
 		return Continue;
 	}
 }
