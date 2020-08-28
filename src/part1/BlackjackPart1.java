@@ -16,8 +16,6 @@ public class BlackjackPart1 {
 		
 		boolean WannaPlay = true;
 		
-		
-		
 			// Intialize the card
 			//for(int i = 0; i < deck.length; i++) deck[i] = i;
 			
@@ -30,66 +28,100 @@ public class BlackjackPart1 {
 				
 			}
 		
-		do {	
+		do {
+			
+			int dScore = 0;
+			int pScore = 0;
 			
 			// Shuffle the cards
-						for( int i = 0; i < deck.length; i++) {
-							int index = (int) (Math.random() * deck.length);
-							String temp = deck[i];
-							deck[i] = deck[index];
-							deck[index] = temp;
-							
-							
-						}		
+			for( int i = 0; i < deck.length; i++) {
+				int index = (int) (Math.random() * deck.length);
+				String temp = deck[i];
+				deck[i] = deck[index];
+				deck[index] = temp;
+			}		
 			
-				String[] dealerHand = new String[10];
-				String[] playerHand = new String[10];
+			String[] dealerHand = new String[10];
+			String[] playerHand = new String[10];
+		
+			// distribution of cards to player and dealer
+			for(int i = 0; i < 4; i++) {
+				if (i% 2 == 0) {
+					playerHand[i/2] = deck[i];//+= CardValue(deck[i],playerScore);
+				}else {
+					//dealerScore += CardValue(deck[i],dealerScore);
+					dealerHand[i/2] = deck[i];
+				}
+			}
+			
+			System.out.println("Player Hand  is " + showHand(playerHand));
+			System.out.println("Player score  is " + getScore(playerHand,pScore));
+			System.out.println();
+			System.out.println("Dealer Hand  is " + showHand(dealerHand));
+			System.out.println("Dealer Hand  is " + getScore(dealerHand,dScore));
+			
+			if (!checkWinner(pScore, dScore)) {
 				
-				int dScore = 0;
-				int pScore = 0;
+				System.out.println();
+				int j = 3;
+				int pHandIdx = 1;
+				int dHandIdx = 1;
+				Scanner hitOrStand = new Scanner(System.in);
+				System.out.print ("Enter h to HIT or s to STAND : ");
+				char userChoice = hitOrStand.next().charAt(0);
+				System.out.println();
 				
-				// distribution of cards to player and dealer
-				for(int i = 0; i < 4; i++) {
-					if (i% 2 == 0) {
-						playerHand[i/2] = deck[i];//+= CardValue(deck[i],playerScore);
-					}else {
-						//dealerScore += CardValue(deck[i],dealerScore);
-						dealerHand[i/2] = deck[i];
+				while(userChoice == 'h' || userChoice == 'H'){
+					j++;
+					pHandIdx++;
+					playerHand[pHandIdx] = deck[j];
+					pScore = getScore(playerHand,pScore);
+					System.out.println("Player Hand  is " + showHand(playerHand));
+					System.out.println("Player score  is " + pScore);
+					if (checkScore(pScore)) {
+						System.out.println("Enter h to HIT or s to STAND : ");
+						userChoice = hitOrStand.next().charAt(0);
+						
+					}else{
+						System.out.println("Player lost");
+						userChoice = 's';
 					}
 				}
 				
-				System.out.println("Player Hand  is " + showHand(playerHand));
-				System.out.println("Player score  is " + getScore(playerHand,pScore));
-				System.out.println("Dealer Hand  is " + showHand(dealerHand));
-				System.out.println("Dealer Hand  is " + getScore(dealerHand,dScore));
-				
-				if (!checkWinner(pScore, dScore)) {
-					int j = 3;
-					int pHandIdx = 1;
-					Scanner hitOrStand = new Scanner(System.in);
-					System.out.println("Enter h to HIT or s to STAND : ");
-					char userChoice = hitOrStand.next().charAt(0);
-					while(userChoice == 'h') {
+			
+				while(userChoice == 's' || userChoice == 'S') {
+					
+					System.out.println((dScore < 17) + " " + (dScore < pScore));
+					System.out.println(dScore + " " + pScore);
+					
+					if(dScore < 17 && dScore < pScore) {
 						j++;
-						pHandIdx++;
-						playerHand[pHandIdx] = deck[j];
-						pScore = getScore(playerHand,pScore);
-						System.out.println("Player Hand  is " + showHand(playerHand));
-						System.out.println("Player score  is " + pScore);
-						if (checkScore(pScore)) {
-							System.out.println("Enter h to HIT or s to STAND : ");
-							userChoice = hitOrStand.next().charAt(0);
-							
-						} else {
-							System.out.println("Player lost");
-							break;
-						}
+						dHandIdx++;
+						dealerHand[dHandIdx] = deck[j];
+						dScore = getScore(dealerHand, dScore);
+						System.out.println("Dealer Hand  is " + showHand(dealerHand));
+						System.out.println("Dealer score  is " + dScore);
+					
+					}else if(dScore > 17 && dScore > pScore) {
+						
+						System.out.println("Dealer Wins!!!!");
+						System.out.println("Sorry about your luck.");
+						System.out.println();
+						userChoice = ' ';
+						
+					}else if((dScore > 17) && (pScore > dScore) && (pScore <=21)){
+						
+						System.out.println("Player Wins!!!!");
+						System.out.println();
+						userChoice = ' ';
+					}else {
+						
+						System.out.println("Error");
 					}
 				}
-				
-				
-				
-				WannaPlay = Continue();	
+			}
+			
+			WannaPlay = Continue();	
 				
 				
 			}while(WannaPlay == true);
@@ -97,9 +129,7 @@ public class BlackjackPart1 {
 		System.out.println();
 		System.out.println("Thanks for playing CLI Blackjack!");
 		System.out.println("Come back to lose more money!!!!!");
-		
-		input.close();
-	}
+}
 	
 	public static String showHand(String[] hand) {
 		String handStr = "";
@@ -192,8 +222,7 @@ public class BlackjackPart1 {
 			Continue();
 		}
 		
-		
-		
+	
 		return temp_bool;
 	}
 		
