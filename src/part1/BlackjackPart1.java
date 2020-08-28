@@ -35,11 +35,11 @@ public class BlackjackPart1 {
 					//Dealer, Player, Dealer, Player
 					if (i% 2 == 0) {
 						
-						playerScore += getScore(new_deck[i]);
+						playerScore += Score.getScore(new_deck[i]);
 						
 					}else {
 						
-						dealerScore += getScore(new_deck[i]);
+						dealerScore += Score.getScore(new_deck[i]);
 					}
 				}
 				
