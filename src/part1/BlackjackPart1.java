@@ -1,6 +1,6 @@
 package part1;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class BlackjackPart1 {
 	
@@ -118,9 +118,10 @@ public class BlackjackPart1 {
 						
 						System.out.println("Error");
 					}
+
 				}
 			}
-			
+      
 			WannaPlay = Continue();	
 				
 				
@@ -220,10 +221,56 @@ public class BlackjackPart1 {
 			System.out.println("Fatal Error... Please Try again.....");
 			
 			Continue();
-		}
+=======
+			//Check Dealer Black Jack before play starts after dealing
+			//If dealer has A + 10/J/Q/K they auto win if player doesn't have it as well
+			boolean auto_lost = Winner.BlackJackCheck(pScore, dScore);
+			
+			System.out.println(auto_lost);
+			//Automatically reset the game if plater wants to continue;
+			//After losing to a blackjack
+			if(auto_lost) {
+				WannaPlay = Continue.Continue();
+				if(WannaPlay){main(args);}	
+			}
+			
+			System.out.println("Player Hand  is " + showHand(playerHand));
+			System.out.println("Player score  is " + getScore(playerHand,pScore));
+			System.out.println("Dealer Hand  is " + showHand(dealerHand));
+			System.out.println("Dealer Hand  is " + getScore(dealerHand,dScore));
+			
+			Hit.hit(pScore, dScore, auto_lost, new_deck);
+			
+			
+			//Calls Continue Method
+			WannaPlay = Continue.Continue();	
+			
+				
+			}while(WannaPlay == true);
 		
-	
-		return temp_bool;
+		System.out.println();
+		System.out.println("Thanks for playing CLI Blackjack!");
+		System.out.println("Come back to lose more money!!!!!");
+		
+		input.close();
 	}
+	
+	public static String showHand(String[] hand) {
+		String handStr = "";
+		for(int i=0;i<hand.length;i++) {
+			if (hand[i] == null) continue;
+			handStr = handStr + hand[i] +" ";
+		}
+		return handStr;
+	}
+	
+	public static int getScore(String[] hand, int score) {
+		for(int i=0;i<hand.length;i++) {
+			if (hand[i] == null) continue;
+			score = CardValue(hand[i], score);
+		}
+		return score;
+	}
+}
 		
 }
