@@ -4,20 +4,20 @@ import java.util.*;
 
 public class BlackjackPart1 {
 	
-	static int[] deck = new int[52];
-	
-	//Easy reading
-	static String[] suits = {"s", "h", "d", "c"};
-	static String[] ranks = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"};
-	
 	public static void main(String[] args) {
 		
+		int[] new_deck = new int[52];
+		
+		
+		
+		//Create A Deck
+		new_deck = NewDeck.NewDeck();
 		
 		Scanner input = new Scanner(System.in);
 		boolean WannaPlay = true;
 		
 			// Initialize the card
-			for(int i = 0; i < deck.length; i++) deck[i] = i;	
+				
 		
 		do {	
 			
@@ -25,14 +25,9 @@ public class BlackjackPart1 {
 			int dealerScore = 0;
 			int playerScore = 0;
 			
-			
-			// Shuffle the cards
-				for( int i = 0; i < deck.length; i++) {
-					int index = (int) (Math.random() * deck.length);
-					int temp = deck[i];
-					deck[i] = deck[index];
-					deck[index] = temp;
-				}		
+			//Creates instance of new deck
+			new_deck = NewDeck.NewDeck();
+				
 
 				
 				// Distribution of cards to player and dealer
@@ -40,11 +35,11 @@ public class BlackjackPart1 {
 					//Dealer, Player, Dealer, Player
 					if (i% 2 == 0) {
 						
-						playerScore += getScore(deck[i]);
+						playerScore += getScore(new_deck[i]);
 						
 					}else {
 						
-						dealerScore += getScore(deck[i]);
+						dealerScore += getScore(new_deck[i]);
 					}
 				}
 				
@@ -62,13 +57,13 @@ public class BlackjackPart1 {
 					
 					while(userChoice == 'h' || userChoice =='H') {
 						
-						playerScore += getScore(deck[j]);
+						playerScore += Score.getScore(new_deck[j]);
 						
 						if (!checkWinner(playerScore, dealerScore)) {
 							
 							j++;
 							
-							dealerScore += getScore(deck[j]);
+							dealerScore += Score.getScore(new_deck[j]);
 							
 							if (!checkWinner(playerScore, dealerScore)) {
 								
@@ -100,23 +95,7 @@ public class BlackjackPart1 {
 	}
 	
 	
-	public static int getScore(int cardIndex) {
-		
-		String suit = suits[deck[cardIndex] / 13];
-		String rank = ranks[deck[cardIndex] % 13];
-		
-		int result = Integer.parseInt(rank);
-		
-        switch (Integer.parseInt(rank))
-        {
-            case 11:
-            case 12:
-            case 13:
-                result =  10;
-        }
-        return result;
-		
-	}
+	
 	
 	public static boolean checkWinner(int playerScore, int dealerScore) {
 		
