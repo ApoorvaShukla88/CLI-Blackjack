@@ -11,7 +11,7 @@ public class BlackjackPart1 {
 	static String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 	
 	public static void main(String[] args) {
-		
+
 		Scanner input = new Scanner(System.in);
 		
 		boolean WannaPlay = true;
@@ -43,6 +43,9 @@ public class BlackjackPart1 {
 			
 			String[] dealerHand = new String[10];
 			String[] playerHand = new String[10];
+			
+			dScore = getScore(dealerHand,dScore);
+			pScore = getScore(playerHand,pScore);
 		
 			// distribution of cards to player and dealer
 			for(int i = 0; i < 4; i++) {
@@ -91,8 +94,8 @@ public class BlackjackPart1 {
 			
 				while(userChoice == 's' || userChoice == 'S') {
 					
-					System.out.println((dScore < 17) + " " + (dScore < pScore));
-					System.out.println(dScore + " " + pScore);
+					pScore = getScore(playerHand,pScore);
+					dScore = getScore(dealerHand,dScore);
 					
 					if(dScore < 17 && dScore < pScore) {
 						j++;
@@ -102,7 +105,7 @@ public class BlackjackPart1 {
 						System.out.println("Dealer Hand  is " + showHand(dealerHand));
 						System.out.println("Dealer score  is " + dScore);
 					
-					}else if(dScore > 17 && dScore > pScore) {
+					}else if(dScore > 17 && dScore > pScore && dScore <=21) {
 						
 						System.out.println("Dealer Wins!!!!");
 						System.out.println("Sorry about your luck.");
@@ -114,9 +117,9 @@ public class BlackjackPart1 {
 						System.out.println("Player Wins!!!!");
 						System.out.println();
 						userChoice = ' ';
-					}else {
+					}else{
+						userChoice = ' ';
 						
-						System.out.println("Error");
 					}
 
 				}
@@ -188,6 +191,7 @@ public class BlackjackPart1 {
 	
 	//Continue class
 	public static boolean Continue() {
+	
 		
 		Scanner temp_input = new Scanner(System.in);
 		
